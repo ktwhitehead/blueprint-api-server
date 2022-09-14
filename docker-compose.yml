@@ -1,0 +1,30 @@
+version: "3.3"
+services:
+  blueprint-db:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports: 
+      - '5432:5432'
+    volumes:
+      - blueprint-db:/var/lib/postgresql/data
+
+  blueprint-api-server:
+    build:
+      context: .
+    environment:
+      DB_SCHEMA: postgres
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_HOST: postgres
+      DATABASE_URL: postgresql://postgres:postgres@blueprint-db:5432/postgres
+    depends_on:
+      - blueprint-db
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/opt/app
+
+volumes:
+  blueprint-db:
