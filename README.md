@@ -4,32 +4,62 @@
 
 ## Getting Started
   To run the server locally, simply run `docker compse up` in the root directory of the project. \
-  To run migrations, run `node run migrate up`. \
-  To seed data, run `node run seed`.
+  To run migrations, run `npm run migrate up`. \
+  To seed data, run `npm run seed`.
 
-
-#### Link to to the hosted application (if there is one)
-#### Instructions for running the code locally (if not hosted)
-#### Description of the problem and solution
 #### Reasoning behind your technical choices
+
+- I chose Node/Express for its maturity and stability as well as its popularity among the general dev community.
+- `node-pg-migrate` was picked for its variety of features and support (seemed to be the best migration tool for node projects).
+- Postgres for 
+- Docker because of its ease of use and convenience
+
 #### Describe how you would deploy this as a true production app on the platform of your choice:
-  - How would ensure the application is highly available and performs well?
-  - How would you secure it?
-      - Reverse proxy
-      - Dependabot
-  - What would you add to make it easier to troubleshoot problems while it is running live?
+
+- I'd have a CI pipeline (I've most recently been using Circle CI) in place to ensure tests/linting steps pass before any deployment.
+- Deploying this to AWS Lambda via serverless would be my preference due to its simplicity, ease of maintenance, and scalability.
+- I'd use AWS RDS for the postgres db.
+- I'd consider something like Terraform (I have some experience with) or AWS CDK (I have no exprience with) for managing devops.
+
 #### Trade-offs you might have made, anything you left out, or what you might do differently if you were to spend additional time on the project
-  - blueprint-api-server
-    - CI
-    - Typescript
-    - Linting
-    - API Docs - Swagger?
-    - Logging
-    - Observability - open telemetry?
-    - DB/Schema docs
-    - Validation around multi-choice answers/json
-  - blueprint-frontend
-    - Observability
-    - CI
+
+- Lack of test coverage
+  - Ideally, I'd have unit tests for each of the models, scripts, and services.
+  - E2E tests
+
+- Typescript and linting
+  - This was my first Node/Express project, and I was more worried about getting somethign up and running vs implementing Typescript. \
+    With more time, I'd make the investment of implementing Typescript.
+
+- Security
+  - I'd need to reconsider node/express best practices for security.
+    - I've implemented helmet but I'm sure there is more to tidy up.
+  - If I had lots of money, I'd look at implementing somethign like Anchore to identify vulnerabilities in code, dependencies, build steps, deploy.
+
+- Observability
+
+  - I'd consider open telemetry for metrics, logging, and tracing.
+    - Vendor agnostic
+
+- API docs
+  - I'd add swagger or something similar
+
+- Schema documentation
+  - SchemaSpy
+
+- Mono repo?
+
 #### Link to other code you're particularly proud of
+
+- Feel free to look at any of my repos at github.com/ktwhitehead though they are mostly half baked projects. \
+- I'm semi proud of a project I still maintain, but I won't share repo because it was created years ago and it's embarrasing how bad the code is:
+  - pullpokes.com
+- I've worked on/maintain other projects with a friend:
+  - https://chrome.google.com/webstore/detail/smrzr/ebichgemfmpphjcdiebfmpbfflocnjoa?hl=en-US
+  - smrzr.io
+  - tennesseeled.com
+
 #### Link to your resume or public profile
+
+- I'm still working on updating this, will email it here shortly.
+
