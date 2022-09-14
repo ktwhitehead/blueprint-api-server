@@ -6,7 +6,7 @@ const indexRouter = require('./routes/index');
 const app = express();
 
 app.use(helmet());
-// should define origins
+// should explicitly define origins
 app.use(cors());
 app.use(express.json());
 

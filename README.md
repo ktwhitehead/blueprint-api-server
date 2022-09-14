@@ -36,8 +36,10 @@
     - I've implemented helmet but I'm sure there is more to tidy up.
   - If I had lots of money, I'd look at implementing somethign like Anchore to identify vulnerabilities in code, dependencies, build steps, deploy.
 
-- Observability
+- ORM
+  - I wanted to see how far I could get without using an ORM, but introducing one could clean the code up a bit.
 
+- Observability
   - I'd consider open telemetry for metrics, logging, and tracing.
     - Vendor agnostic
 
