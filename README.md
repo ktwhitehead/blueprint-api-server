@@ -3,15 +3,15 @@
 - npm
 
 ## Getting Started
-  To run the server locally, simply run `docker compse up` in the root directory of the project. \
-  To run migrations, run `npm run migrate up`. \
-  To seed data, run `npm run seed`.
+  Install dependencies, `npm install`. \
+  Run the server, `docker compse up`. \
+  Run migrations, `npm run migrate up`. \
+  Seed data (the blueprint screener), run `npm run seed`.
 
 #### Reasoning behind your technical choices
 
 - I chose Node/Express for its maturity and stability as well as its popularity among the general dev community.
 - `node-pg-migrate` was picked for its variety of features and support (seemed to be the best migration tool for node projects).
-- Postgres for 
 - Docker because of its ease of use and convenience
 
 #### Describe how you would deploy this as a true production app on the platform of your choice:
