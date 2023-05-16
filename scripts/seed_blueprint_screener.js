@@ -10,7 +10,7 @@ const screenerQuestions = [
   { text: 'Feeling nervous, anxious, frightened, worried, or on edge?', domain: 'anxiety' },
   { text: 'Feeling panic or being frightened?', domain: 'anxiety' },
   { text: 'Avoiding situations that make you feel anxious?', domain: 'anxiety' },
-  { text: 'Drinking at least 4 drinks of any kind of alcohol in a single day?', domain: 'substance-use' }
+  { text: 'Drinking at least 4 drinks of any kind of alcohol in a single day?', domain: 'substance_use' }
 ]
 
 const screenerQuestionAnswers = JSON.stringify([

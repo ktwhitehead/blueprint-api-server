@@ -51,7 +51,7 @@ describe('ScreenerService', () => {
   })
 
   describe('determineAssessments', () => {
-    it.only('calculates a score per domain and retuns the expected results', async () => {
+    it('calculates a score per domain and retuns the expected results', async () => {
       jest.spyOn(Screeners, 'questionsForScreener').mockImplementationOnce(() => [
         { question_id: 1, domain: 'depression' },
         { question_id: 2, domain: 'substance_use' },
