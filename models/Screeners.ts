@@ -1,33 +1,33 @@
 import { sql } from 'squid/pg.js'
-import db from './db.js';
+import db from './db.js'
 
 const Screeners = {
-  async create(disorder: any, short_name: any, full_name: any) {
+  async create(disorder: string, short_name: string, full_name: string) {
     const { rows } = await db.query(sql`
     INSERT INTO screeners (disorder, short_name, full_name)
       VALUES (${disorder}, ${short_name}, ${full_name})
       RETURNING id;
-    `);
-    return rows[0];
+    `)
+    return rows[0]
   },
-  async find(id: any) {
+  async find(id: BigInt) {
     const { rows } = await db.query(sql`
     SELECT * FROM screeners WHERE id = ${id} LIMIT 1;
-    `);
-    return rows[0];
+    `)
+    return rows[0]
   },
   async list() {
     const { rows } = await db.query(sql`
     SELECT * FROM screeners;
-    `);
-    return rows;
+    `)
+    return rows
   },
-  async delete(id: any) {
+  async delete(id: BigInt) {
     await db.query(sql`
     DELETE FROM screeners WHERE id = ${id};
-    `);
+    `)
   },
-  async questionsForScreener(id: any) {
+  async questionsForScreener(id: BigInt) {
     const { rows } = await db.query(sql`
     SELECT
       sq.id question_id,
@@ -39,7 +39,7 @@ const Screeners = {
     `)
     return rows
   },
-  async fullScreener(id: any) {
+  async fullScreener(id: BigInt) {
     const { rows } = await db.query(sql`
     SELECT
       id,
@@ -63,9 +63,9 @@ const Screeners = {
     ) a
     WHERE id = ${id}
     GROUP BY id, disorder, short_name, full_name;
-    `);
+    `)
     return rows[0]
-  }
-};
+  },
+}
 
 export default Screeners

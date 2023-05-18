@@ -1,9 +1,9 @@
 /* eslint-disable camelcase */
 
-exports.shorthands = undefined;
+exports.shorthands = undefined
 
-exports.up = pgm => {
-  pgm.createType('screener_question_type', ['multi-choice', 'free-text', 'boolean']);
+exports.up = (pgm) => {
+  pgm.createType('screener_question_type', ['multi-choice', 'free-text', 'boolean', 'standard'])
 
   pgm.createTable('screener_questions', {
     id: { type: 'bigserial', primaryKey: true },
@@ -15,7 +15,7 @@ exports.up = pgm => {
       type: 'bigint',
       notNull: true,
       references: '"screener_sections"',
-      onDelete: 'cascade'
+      onDelete: 'cascade',
     },
     created_at: {
       type: 'timestamp',
@@ -23,12 +23,12 @@ exports.up = pgm => {
       default: pgm.func('current_timestamp'),
     },
     updated_at: {
-      type: 'timestamp'
-    }
-  });
-};
+      type: 'timestamp',
+    },
+  })
+}
 
-exports.down = pgm => {
-  pgm.dropTable('screener_questions');
-  pgm.dropType('screener_question_type');
-};
+exports.down = (pgm) => {
+  pgm.dropTable('screener_questions')
+  pgm.dropType('screener_question_type')
+}
