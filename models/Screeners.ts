@@ -1,8 +1,8 @@
-const sql = require('sql-template-strings');
-const db = require('./db');
+import { sql } from 'squid/pg.js'
+import db from './db.js';
 
-module.exports = {
-  async create(disorder, short_name, full_name) {
+const Screeners = {
+  async create(disorder: any, short_name: any, full_name: any) {
     const { rows } = await db.query(sql`
     INSERT INTO screeners (disorder, short_name, full_name)
       VALUES (${disorder}, ${short_name}, ${full_name})
@@ -10,7 +10,7 @@ module.exports = {
     `);
     return rows[0];
   },
-  async find(id) {
+  async find(id: any) {
     const { rows } = await db.query(sql`
     SELECT * FROM screeners WHERE id = ${id} LIMIT 1;
     `);
@@ -22,12 +22,12 @@ module.exports = {
     `);
     return rows;
   },
-  async delete(id) {
+  async delete(id: any) {
     await db.query(sql`
     DELETE FROM screeners WHERE id = ${id};
     `);
   },
-  async questionsForScreener(id) {
+  async questionsForScreener(id: any) {
     const { rows } = await db.query(sql`
     SELECT
       sq.id question_id,
@@ -39,7 +39,7 @@ module.exports = {
     `)
     return rows
   },
-  async fullScreener(id) {
+  async fullScreener(id: any) {
     const { rows } = await db.query(sql`
     SELECT
       id,
@@ -67,3 +67,5 @@ module.exports = {
     return rows[0]
   }
 };
+
+export default Screeners

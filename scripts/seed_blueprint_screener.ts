@@ -1,6 +1,6 @@
-const Screeners = require('../models/Screeners')
-const ScreenerSections = require('../models/ScreenerSections')
-const ScreenerQuestions = require('../models/ScreenerQuestions')
+import Screeners from '../models/Screeners.js'
+import ScreenerSections from '../models/ScreenerSections.js'
+import ScreenerQuestions from '../models/ScreenerQuestions.js'
 
 const screenerQuestions = [
   { text: 'Little interest or pleasure in doing things?', domain: 'depression' },

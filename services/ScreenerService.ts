@@ -1,4 +1,4 @@
-const Screeners = require('../models/Screeners')
+import Screeners from '../models/Screeners.js'
 
 const assessmentMap = [
   {
@@ -23,7 +23,7 @@ const assessmentMap = [
   }
 ]
 
-module.exports = class ScreenerService {
+class ScreenerService {
   constructor() {}
 
   async list() {
@@ -31,12 +31,12 @@ module.exports = class ScreenerService {
     return screeners;
   }
 
-  async getScreener(id) {
+  async getScreener(id: any) {
     const screener = await Screeners.fullScreener(id);
 
-    const sections = screener.sections.map((section) => {
-      const answers = section.questions.map((question) => question.answers)
-      const uniqueAnswers = [...new Map(answers.map((answer) => [answer["title"], answer])).values()]?.[0]
+    const sections = screener.sections.map((section: any) => {
+      const answers = section.questions.map((question: any) => question.answers)
+      const uniqueAnswers = [...new Map(answers.map((answer: any) => [answer["title"], answer])).values()]?.[0]
       return {
         type: section.type,
         title: section.title,
@@ -55,20 +55,24 @@ module.exports = class ScreenerService {
     return formattedScreener
   }
 
-  async determineAssessments(screenerId, answers) {
-    const questions = await Screeners.questionsForScreener(screenerId);
-    const answersWithDomain = answers.map((answer) => ({
+  async determineAssessments(screenerId: any, answers: any) {
+    const screenerQuestions = await Screeners.questionsForScreener(screenerId);
+    const answersWithDomain = answers.map((answer: any) => ({
       ...answer,
-      domain: questions.find((question) =>
+      domain: screenerQuestions.find((question: any) =>
         Number(question.question_id) === answer.question_id).domain
     }));
 
     const assessments = assessmentMap.map((assessment) => {
-      const answersByDomain = answersWithDomain.filter((answer) => answer.domain === assessment.domain)
-      const valueByDomain = answersByDomain.map((answer) => answer.value).reduce((a, b) => a + b, 0)
+      const answersByDomain = answersWithDomain.filter((answer: any) => answer.domain === assessment.domain)
+
+      const valueByDomain = answersByDomain.map((answer: any) => answer.value).reduce((a: any, b: any) => a + b, 0)
+
       if (valueByDomain >= assessment.value) return assessment.name
     }).filter(Boolean)
 
     return assessments
   }
 }
+
+export default ScreenerService

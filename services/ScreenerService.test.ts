@@ -1,5 +1,5 @@
-const ScreenerService = require('./ScreenerService')
-const Screeners = require('../models/Screeners')
+import ScreenerService from './ScreenerService.js'
+import Screeners from '../models/Screeners.js'
 
 const fullScreener = {
   id: 123,
@@ -36,7 +36,7 @@ const userAnswers = [
 describe('ScreenerService', () => {
   describe('getScreener', () => {
     it('calls on the db for the screener data and formats it properly', async () => {
-      jest.spyOn(Screeners, 'fullScreener').mockImplementationOnce(() => fullScreener)
+      jest.spyOn(Screeners, 'fullScreener').mockImplementationOnce(async () => fullScreener)
       const screenerService = new ScreenerService()
       const result = await screenerService.getScreener(123)
 
@@ -52,7 +52,7 @@ describe('ScreenerService', () => {
 
   describe('determineAssessments', () => {
     it('calculates a score per domain and retuns the expected results', async () => {
-      jest.spyOn(Screeners, 'questionsForScreener').mockImplementationOnce(() => [
+      jest.spyOn(Screeners, 'questionsForScreener').mockImplementationOnce(async () => [
         { question_id: 1, domain: 'depression' },
         { question_id: 2, domain: 'substance_use' },
         { question_id: 3, domain: 'mania' }
