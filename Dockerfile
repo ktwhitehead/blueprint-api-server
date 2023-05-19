@@ -1,4 +1,4 @@
-FROM node:19.9.0
+FROM node:18.16.0
 WORKDIR /app
 COPY package*.json ./
 COPY tsconfig.json ./

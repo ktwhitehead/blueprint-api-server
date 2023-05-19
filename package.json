@@ -5,18 +5,20 @@
   "type": "module",
   "scripts": {
     "build": "npx tsc",
-    "start": "concurrently \"nodemon dist/app.js\" \"npx tsc --watch\"",
+    "start": "concurrently \"npx tsc --watch \" \"nodemon dist/app.js\"",
     "migrate": "DATABASE_URL=postgresql://postgres:postgres@localhost:5432 node ./node_modules/.bin/node-pg-migrate",
     "seed": "DATABASE_URL=postgresql://postgres:postgres@localhost:5432 node --unhandled-rejections=strict dist/scripts/seed_blueprint_screener.js",
     "test": "jest"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "~4.16.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.1",
     "helmet": "^6.0.0",
     "node-pg-migrate": "^6.2.2",
     "npm": "^8.19.1",
     "pg": "^8.8.0",
+    "serverless-http": "^3.2.0",
     "squid": "^0.5.2"
   },
   "devDependencies": {
@@ -31,6 +33,7 @@
     "jest": "^29.4.3",
     "nodemon": "^2.0.22",
     "prettier": "^2.8.8",
+    "serverless": "^3.31.0",
     "ts-jest": "^29.1.0",
     "ts-jest-resolver": "^2.0.1",
     "typescript": "^5.0.4"

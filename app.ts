@@ -1,16 +1,28 @@
+import dotenv from 'dotenv'
 import express from 'express'
 // import helmet from 'helmet'
+import serverless from 'serverless-http'
 import cors from 'cors'
 import { router } from './routes/router.js'
+
+dotenv.config()
 
 const app = express()
 
 // app.use(helmet());
 // should explicitly define origins
-app.use(cors())
+app.use(cors({ origin: '*' }))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.use('/', router)
 
-const port = process.env.PORT || 3000
-app.listen(port, () => console.log(`App is listening on port ${port}.`))
+// if (process.env.ENVIRONMENT === 'dev') {
+//   const port = process.env.PORT || 3000
+//   app.listen(port, () => console.log(`App is listening on port ${port}.`))
+// }
+
+export const sls = serverless(app)
+// export default serverless(app)
+
+// curl -H "Content-Type: application/json" -X GET https://3uk4wwxx54.execute-api.us-east-1.amazonaws.com/screeners

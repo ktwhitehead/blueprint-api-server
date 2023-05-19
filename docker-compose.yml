@@ -1,11 +1,11 @@
-version: "3.4"
+version: '3.4'
 services:
   blueprint-db:
     image: postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-    ports: 
+    ports:
       - 5432:5432
     volumes:
       - blueprint-db:/var/lib/postgresql/data
@@ -25,8 +25,8 @@ services:
       - 3000:3000
     volumes:
       - ./:/app
-      - exclude:/app/node_modules/
+      # - exclude:/app/node_modules/
 
 volumes:
   blueprint-db:
-  exclude:
+  # exclude:
