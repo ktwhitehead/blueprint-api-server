@@ -28,9 +28,9 @@ const fullScreener = {
 }
 
 const userAnswers = [
-  { question_id: 1, value: 2 },
-  { question_id: 2, value: 1 },
-  { question_id: 3, value: 0 },
+  { id: 1, question_id: 1, value: 2, title: 'Choice 1', created_at: 'createdAt', updated_at: 'updatedAt' },
+  { id: 2, question_id: 2, value: 1, title: 'Choice 2', created_at: 'createdAt', updated_at: 'updatedAt' },
+  { id: 3, question_id: 3, value: 0, title: 'Choice 3', created_at: 'createdAt', updated_at: 'updatedAt' },
 ]
 
 describe('ScreenerService', () => {
@@ -38,7 +38,7 @@ describe('ScreenerService', () => {
     it('calls on the db for the screener data and formats it properly', async () => {
       jest.spyOn(Screeners, 'fullScreener').mockImplementationOnce(async () => fullScreener)
       const screenerService = new ScreenerService()
-      const result = await screenerService.getScreener(BigInt(123))
+      const result = await screenerService.getScreener(123)
 
       const answers = result.content.sections[0].answers
       const questions = result.content.sections[0].questions
@@ -53,12 +53,12 @@ describe('ScreenerService', () => {
   describe('determineAssessments', () => {
     it('calculates a score per domain and retuns the expected results', async () => {
       jest.spyOn(Screeners, 'questionsForScreener').mockImplementationOnce(async () => [
-        { question_id: 1, domain: 'depression' },
-        { question_id: 2, domain: 'substance_use' },
-        { question_id: 3, domain: 'mania' },
+        { id: 1, domain: 'depression' },
+        { id: 2, domain: 'substance_use' },
+        { id: 3, domain: 'mania' },
       ])
       const screenerService = new ScreenerService()
-      const result = await screenerService.determineAssessments(BigInt(123), userAnswers)
+      const result = await screenerService.determineAssessments(123, userAnswers)
 
       expect(result).toEqual(['PHQ-9', 'ASSIST'])
     })

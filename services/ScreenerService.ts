@@ -1,4 +1,6 @@
 import Screeners from '../models/Screeners.js'
+import { ScreenerSection } from '../models/ScreenerSections.js'
+import { ScreenerQuestion, ScreenerAnswer } from '../models/ScreenerQuestions.js'
 
 const assessmentMap = [
   {
@@ -31,14 +33,12 @@ class ScreenerService {
     return screeners
   }
 
-  async getScreener(id: BigInt) {
+  async getScreener(id: number) {
     const screener = await Screeners.fullScreener(id)
 
-    const sections = screener.sections.map((section: any) => {
-      const answers = section.questions.map((question: any) => question.answers)
-      const uniqueAnswers = [
-        ...new Map(answers.map((answer: any) => [answer['title'], answer])).values(),
-      ]?.[0]
+    const sections = screener.sections.map((section: ScreenerSection) => {
+      const answers = section.questions.map((question: ScreenerQuestion) => question.answers)
+      const uniqueAnswers = [...new Map(answers.map((answer: any) => [answer.title, answer])).values()]?.[0]
       return {
         type: section.type,
         title: section.title,
@@ -57,11 +57,12 @@ class ScreenerService {
     return formattedScreener
   }
 
-  async determineAssessments(screenerId: BigInt, answers: any) {
+  async determineAssessments(screenerId: number, answers: ScreenerAnswer[]) {
     const screenerQuestions = await Screeners.questionsForScreener(screenerId)
-    const answersWithDomain = answers.map((answer: any) => ({
+
+    const answersWithDomain = answers.map((answer: ScreenerAnswer) => ({
       ...answer,
-      domain: screenerQuestions.find((question: any) => Number(question.question_id) === answer.question_id)
+      domain: screenerQuestions.find((question: ScreenerQuestion) => question.id === answer.question_id)
         .domain,
     }))
 
@@ -70,8 +71,8 @@ class ScreenerService {
         const answersByDomain = answersWithDomain.filter((answer: any) => answer.domain === assessment.domain)
 
         const valueByDomain = answersByDomain
-          .map((answer: any) => answer.value)
-          .reduce((a: any, b: any) => a + b, 0)
+          .map((answer: ScreenerAnswer) => answer.value)
+          .reduce((a: number, b: number) => a + b, 0)
 
         if (valueByDomain >= assessment.value) return assessment.name
       })

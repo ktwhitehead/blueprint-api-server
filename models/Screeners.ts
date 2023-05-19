@@ -1,5 +1,11 @@
 import { sql } from 'squid/pg.js'
 import db from './db.js'
+import { ScreenerSectionType } from './ScreenerSections.js'
+
+export type Screener = {
+  type: ScreenerSectionType
+  title: string
+}
 
 const Screeners = {
   async create(disorder: string, short_name: string, full_name: string) {
@@ -10,7 +16,7 @@ const Screeners = {
     `)
     return rows[0]
   },
-  async find(id: BigInt) {
+  async find(id: number) {
     const { rows } = await db.query(sql`
     SELECT * FROM screeners WHERE id = ${id} LIMIT 1;
     `)
@@ -22,24 +28,24 @@ const Screeners = {
     `)
     return rows
   },
-  async delete(id: BigInt) {
+  async delete(id: number) {
     await db.query(sql`
     DELETE FROM screeners WHERE id = ${id};
     `)
   },
-  async questionsForScreener(id: BigInt) {
+  async questionsForScreener(id: number) {
     const { rows } = await db.query(sql`
     SELECT
-      sq.id question_id,
+      sq.id id,
       sq.domain
     FROM screener_questions sq
     JOIN screener_sections ss ON sq.screener_section_id = ss.id
     JOIN screeners s ON ss.screener_id = s.id
     WHERE s.id = ${id};
     `)
-    return rows
+    return rows.map((question) => ({ ...question, id: Number(question.id) }))
   },
-  async fullScreener(id: BigInt) {
+  async fullScreener(id: number) {
     const { rows } = await db.query(sql`
     SELECT
       id,
