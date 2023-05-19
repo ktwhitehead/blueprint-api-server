@@ -1,12 +1,15 @@
 ## Prerequisites
+
 - Docker
 - npm
 
 ## Getting Started
-  Install dependencies, `npm install`. \
-  Run the server, `docker compse up`. \
-  Run migrations, `npm run migrate up`. \
-  Seed data (the blueprint screener), run `npm run seed`.
+
+Install dependencies, `npm install`. \
+ Build, `npm run build`. \
+ Run the server, `docker compse up`. \
+ Run migrations, `npm run migrate up`. \
+ Seed data (the blueprint screener), run `npm run seed`.
 
 #### Reasoning behind your technical choices
 
@@ -24,29 +27,36 @@
 #### Trade-offs you might have made, anything you left out, or what you might do differently if you were to spend additional time on the project
 
 - Lack of test coverage
+
   - Ideally, I'd have unit tests for each of the models, scripts, and services.
   - E2E tests
 
 - Typescript and linting
+
   - This was my first Node/Express project, and I was more worried about getting somethign up and running vs implementing Typescript. \
     With more time, I'd make the investment of implementing Typescript.
 
 - Security
+
   - I'd need to reconsider node/express best practices for security.
     - I've implemented helmet but I'm sure there is more to tidy up.
   - If I had lots of money, I'd look at implementing somethign like Anchore to identify vulnerabilities in code, dependencies, build steps, deploy.
 
 - ORM
+
   - I wanted to see how far I could get without using an ORM, but introducing one could clean the code up a bit.
 
 - Observability
+
   - I'd consider open telemetry for metrics, logging, and tracing.
     - Vendor agnostic
 
 - API docs
+
   - I'd add swagger or something similar
 
 - Schema documentation
+
   - SchemaSpy
 
 - Mono repo?
@@ -64,4 +74,3 @@
 #### Link to your resume or public profile
 
 - I'm still working on updating this, will email it here shortly.
-

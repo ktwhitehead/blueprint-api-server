@@ -1,45 +1,51 @@
-const sql = require('sql-template-strings');
-const db = require('./db');
+import { sql } from 'squid/pg.js'
+import db from './db.js'
+import { ScreenerSectionType } from './ScreenerSections.js'
 
-module.exports = {
-  async create(disorder, short_name, full_name) {
+export type Screener = {
+  type: ScreenerSectionType
+  title: string
+}
+
+const Screeners = {
+  async create(disorder: string, short_name: string, full_name: string) {
     const { rows } = await db.query(sql`
     INSERT INTO screeners (disorder, short_name, full_name)
       VALUES (${disorder}, ${short_name}, ${full_name})
       RETURNING id;
-    `);
-    return rows[0];
+    `)
+    return rows[0]
   },
-  async find(id) {
+  async find(id: number) {
     const { rows } = await db.query(sql`
     SELECT * FROM screeners WHERE id = ${id} LIMIT 1;
-    `);
-    return rows[0];
+    `)
+    return rows[0]
   },
   async list() {
     const { rows } = await db.query(sql`
     SELECT * FROM screeners;
-    `);
-    return rows;
+    `)
+    return rows
   },
-  async delete(id) {
+  async delete(id: number) {
     await db.query(sql`
     DELETE FROM screeners WHERE id = ${id};
-    `);
+    `)
   },
-  async questionsForScreener(id) {
+  async questionsForScreener(id: number) {
     const { rows } = await db.query(sql`
     SELECT
-      sq.id question_id,
+      sq.id id,
       sq.domain
     FROM screener_questions sq
     JOIN screener_sections ss ON sq.screener_section_id = ss.id
     JOIN screeners s ON ss.screener_id = s.id
     WHERE s.id = ${id};
     `)
-    return rows
+    return rows.map((question) => ({ ...question, id: Number(question.id) }))
   },
-  async fullScreener(id) {
+  async fullScreener(id: number) {
     const { rows } = await db.query(sql`
     SELECT
       id,
@@ -63,7 +69,9 @@ module.exports = {
     ) a
     WHERE id = ${id}
     GROUP BY id, disorder, short_name, full_name;
-    `);
+    `)
     return rows[0]
-  }
-};
+  },
+}
+
+export default Screeners

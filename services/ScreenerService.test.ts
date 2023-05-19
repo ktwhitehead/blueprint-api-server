@@ -1,5 +1,5 @@
-const ScreenerService = require('./ScreenerService')
-const Screeners = require('../models/Screeners')
+import ScreenerService from './ScreenerService.js'
+import Screeners from '../models/Screeners.js'
 
 const fullScreener = {
   id: 123,
@@ -19,24 +19,24 @@ const fullScreener = {
             { title: 'Choice 1', value: 0 },
             { title: 'Choice 2', value: 1 },
             { title: 'Choice 3', value: 2 },
-            { title: 'Choice 4', value: 3 }
-          ]
-        }
-      ]
-    }
-  ]
+            { title: 'Choice 4', value: 3 },
+          ],
+        },
+      ],
+    },
+  ],
 }
 
 const userAnswers = [
-  { question_id: 1, value: 2 },
-  { question_id: 2, value: 1 },
-  { question_id: 3, value: 0 }
+  { id: 1, question_id: 1, value: 2, title: 'Choice 1', created_at: 'createdAt', updated_at: 'updatedAt' },
+  { id: 2, question_id: 2, value: 1, title: 'Choice 2', created_at: 'createdAt', updated_at: 'updatedAt' },
+  { id: 3, question_id: 3, value: 0, title: 'Choice 3', created_at: 'createdAt', updated_at: 'updatedAt' },
 ]
 
 describe('ScreenerService', () => {
   describe('getScreener', () => {
     it('calls on the db for the screener data and formats it properly', async () => {
-      jest.spyOn(Screeners, 'fullScreener').mockImplementationOnce(() => fullScreener)
+      jest.spyOn(Screeners, 'fullScreener').mockImplementationOnce(async () => fullScreener)
       const screenerService = new ScreenerService()
       const result = await screenerService.getScreener(123)
 
@@ -52,10 +52,10 @@ describe('ScreenerService', () => {
 
   describe('determineAssessments', () => {
     it('calculates a score per domain and retuns the expected results', async () => {
-      jest.spyOn(Screeners, 'questionsForScreener').mockImplementationOnce(() => [
-        { question_id: 1, domain: 'depression' },
-        { question_id: 2, domain: 'substance_use' },
-        { question_id: 3, domain: 'mania' }
+      jest.spyOn(Screeners, 'questionsForScreener').mockImplementationOnce(async () => [
+        { id: 1, domain: 'depression' },
+        { id: 2, domain: 'substance_use' },
+        { id: 3, domain: 'mania' },
       ])
       const screenerService = new ScreenerService()
       const result = await screenerService.determineAssessments(123, userAnswers)

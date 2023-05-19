@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3.4"
 services:
   blueprint-db:
     image: postgres
@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
     ports: 
-      - '5432:5432'
+      - 5432:5432
     volumes:
       - blueprint-db:/var/lib/postgresql/data
 
@@ -22,9 +22,11 @@ services:
     depends_on:
       - blueprint-db
     ports:
-      - '3000:3000'
+      - 3000:3000
     volumes:
-      - .:/opt/app
+      - ./:/app
+      - exclude:/app/node_modules/
 
 volumes:
   blueprint-db:
+  exclude:
