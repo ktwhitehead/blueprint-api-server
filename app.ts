@@ -17,12 +17,9 @@ app.use(express.json())
 
 app.use('/', router)
 
-// if (process.env.ENVIRONMENT === 'dev') {
-//   const port = process.env.PORT || 3000
-//   app.listen(port, () => console.log(`App is listening on port ${port}.`))
-// }
+if (process.env.ENVIRONMENT === 'dev') {
+  const port = process.env.PORT || 3000
+  app.listen(port, () => console.log(`App is listening on port ${port}.`))
+}
 
 export const sls = serverless(app)
-// export default serverless(app)
-
-// curl -H "Content-Type: application/json" -X GET https://3uk4wwxx54.execute-api.us-east-1.amazonaws.com/screeners

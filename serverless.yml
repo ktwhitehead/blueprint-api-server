@@ -4,9 +4,12 @@ service: aws-node-express-api-project
 frameworkVersion: '3'
 useDotenv: true
 
+plugins:
+  - serverless-dotenv-plugin
+
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs16.x
   lambdaHashingVersion: '20201221'
   httpApi:
     cors:
@@ -16,6 +19,6 @@ provider:
 
 functions:
   api:
-    handler: app.sls
+    handler: dist/app.sls
     events:
       - httpApi: '*'

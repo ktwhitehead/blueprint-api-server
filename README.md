@@ -2,20 +2,32 @@
 
 - Docker
 - npm
+- serverless (if deploying)
 
 ## Getting Started
 
 Install dependencies, `npm install`. \
- Build, `npm run build`. \
- Run the server, `docker compse up`. \
- Run migrations, `npm run migrate up`. \
- Seed data (the blueprint screener), run `npm run seed`.
+Build, `npm run build`. \
+Run the server, `docker compse up`. \
+Run migrations, `npm run migrate up`. \
+Seed data (the blueprint screener), run `npm run seed`.
+
+## Deploy
+
+`npx serverless deploy --stage prod`
+`DATABASE_URL=<prod db> node ./node_modules/.bin/node-pg-migrate`
+
+## API deployed via Serverless at
+
+https://h5xl2x83ml.execute-api.us-east-1.amazonaws.com/
+curl -H "Content-Type: application/json" -X GET https://h5xl2x83ml.execute-api.us-east-1.amazonaws.com/screeners
 
 #### Reasoning behind your technical choices
 
 - I chose Node/Express for its maturity and stability as well as its popularity among the general dev community.
-- `node-pg-migrate` was picked for its variety of features and support (seemed to be the best migration tool for node projects).
-- Docker because of its ease of use and convenience
+- `node-pg-migrate` was picked for its variety of features and support. In hindsight, I wish I would have used an ORM with migration utilities.
+- Docker because of its ease of use and convenience for local development.
+- Serverless for quick and easy deployments.
 
 #### Describe how you would deploy this as a true production app on the platform of your choice:
 
@@ -34,12 +46,12 @@ Install dependencies, `npm install`. \
 - Typescript and linting
 
   - This was my first Node/Express project, and I was more worried about getting somethign up and running vs implementing Typescript. \
-    With more time, I'd make the investment of implementing Typescript.
+    ~~With more time, I'd make the investment of implementing Typescript.~~ With more time, I'd invest in better types and sharing with the frontend.
 
 - Security
 
   - I'd need to reconsider node/express best practices for security.
-    - I've implemented helmet but I'm sure there is more to tidy up.
+  - I've implemented helmet but I'm sure there is more to tidy up.
   - If I had lots of money, I'd look at implementing somethign like Anchore to identify vulnerabilities in code, dependencies, build steps, deploy.
 
 - ORM
@@ -53,7 +65,8 @@ Install dependencies, `npm install`. \
 
 - API docs
 
-  - I'd add swagger or something similar
+  - I'd add swagger or something similar.
+  - I'd consider implementing openapi and utilizing tools to help generate types from openapi schemas.
 
 - Schema documentation
 
@@ -69,7 +82,6 @@ Install dependencies, `npm install`. \
 - I've worked on/maintain other projects with a friend:
   - https://chrome.google.com/webstore/detail/smrzr/ebichgemfmpphjcdiebfmpbfflocnjoa?hl=en-US
   - smrzr.io
-  - tennesseeled.com
 
 #### Link to your resume or public profile
 
