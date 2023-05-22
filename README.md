@@ -2,7 +2,7 @@
 
 - Docker
 - npm
-- node
+- node 18
 - serverless (if deploying)
 
 ## Getting Started
@@ -23,7 +23,7 @@ Run a repl, `npm run repl`.
 ## API deployed via Serverless at
 
 https://h5xl2x83ml.execute-api.us-east-1.amazonaws.com/ \
-curl -H "Content-Type: application/json" -X GET https://h5xl2x83ml.execute-api.us-east-1.amazonaws.com/screeners
+`curl -H "Content-Type: application/json" -X GET https://h5xl2x83ml.execute-api.us-east-1.amazonaws.com/screeners`
 
 #### Reasoning behind your technical choices
 
