@@ -2,6 +2,7 @@
 
 - Docker
 - npm
+- node
 - serverless (if deploying)
 
 ## Getting Started
@@ -11,15 +12,16 @@ Build, `npm run build`. \
 Run the server, `docker compse up`. \
 Run migrations, `npm run migrate up`. \
 Seed data (the blueprint screener), run `npm run seed`.
+Run a repl, `npm run repl`.
 
 ## Deploy
 
-`npx serverless deploy --stage prod`
+`npx serverless deploy --stage prod` \
 `DATABASE_URL=<prod db> node ./node_modules/.bin/node-pg-migrate`
 
 ## API deployed via Serverless at
 
-https://h5xl2x83ml.execute-api.us-east-1.amazonaws.com/
+https://h5xl2x83ml.execute-api.us-east-1.amazonaws.com/ \
 curl -H "Content-Type: application/json" -X GET https://h5xl2x83ml.execute-api.us-east-1.amazonaws.com/screeners
 
 #### Reasoning behind your technical choices
@@ -51,6 +53,7 @@ curl -H "Content-Type: application/json" -X GET https://h5xl2x83ml.execute-api.u
 - Security
 
   - I'd need to reconsider node/express best practices for security.
+  - Specify allowed origins.
   - I've implemented helmet but I'm sure there is more to tidy up.
   - If I had lots of money, I'd look at implementing somethign like Anchore to identify vulnerabilities in code, dependencies, build steps, deploy.
 
@@ -76,7 +79,7 @@ curl -H "Content-Type: application/json" -X GET https://h5xl2x83ml.execute-api.u
 
 #### Link to other code you're particularly proud of
 
-- Feel free to look at any of my repos at github.com/ktwhitehead though they are mostly half baked projects. \
+- Feel free to look at any of my repos at github.com/ktwhitehead, though they are mostly half baked projects.
 - I'm semi proud of a project I still maintain, but I won't share repo because it was created years ago and it's embarrasing how bad the code is:
   - pullpokes.com
 - I've worked on/maintain other projects with a friend:
