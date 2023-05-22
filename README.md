@@ -7,11 +7,12 @@
 
 ## Getting Started
 
+Copy the contents of the `.env.example` into a new `.env` file. \
 Install dependencies, `npm install`. \
 Build, `npm run build`. \
 Run the server, `docker compse up`. \
 Run migrations, `npm run migrate up`. \
-Seed data (the blueprint screener), run `npm run seed`.
+Seed data (the blueprint screener), run `npm run seed`. \
 Run a repl, `npm run repl`.
 
 ## Deploy
@@ -29,7 +30,7 @@ curl -H "Content-Type: application/json" -X GET https://h5xl2x83ml.execute-api.u
 - I chose Node/Express for its maturity and stability as well as its popularity among the general dev community.
 - `node-pg-migrate` was picked for its variety of features and support. In hindsight, I wish I would have used an ORM with migration utilities.
 - Docker because of its ease of use and convenience for local development.
-- Serverless for quick and easy deployments.
+- Serverless for quick and easy deployments and scalability.
 
 #### Describe how you would deploy this as a true production app on the platform of your choice:
 
